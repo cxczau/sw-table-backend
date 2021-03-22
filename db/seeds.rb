@@ -8,76 +8,27 @@
 
 require 'csv'
 
-# locations = Location.create([
-#     {
-#         name: "Kashyyk"
-#     },
-#     {
-#         name: "Death Star"
-#     },
-#     {
-#         name: "Tatooine"
-#     }
-# ])
-
-# affiliations = Affiliation.create([
-#     {
-#         name: "Rebel Alliance"
-#     },
-#     {
-#         name: "Sith"
-#     },
-# ])
-
-# CSV.foreach(Rails.root.join('lib/seed_csv/sw_seeds_simple.csv'), headers: true) do |row|
-#   Person.create( {
-#     first_name: row["Name"], 
-#     location: row["Location"],
-#     species: row["Species"], 
-#     gender: row["Gender"],
-#     affiliation: row["Affiliations"],
-#     weapon: row["Weapon"],
-#     vehicle: row["Vehicle"]
-#   } ) 
-# end
-
-csv_text = File.read(Rails.root.join('lib', 'seed_csv', 'sw_seeds_simple.csv'))
+csv_text = File.read(Rails.root.join('lib', 'seed_csv', 'sw_seeds.csv'))
 csv = CSV.parse(csv_text, :headers => true, :encoding => 'ISO-8859-1')
 csv.each do |row|
-    l = Location.new
-    p = Person.new
-    a = Affiliation.new
-    l.name = row['Location']
-    a.name = row["Affiliations"]
-    p.first_name = row['Name']
-    p.location = l
-    p.species = row["Species"]
-    p.gender = row["Gender"]
-    p.affiliation = a
-    p.weapon = row["Weapon"]
-    p.vehicle = row["Vehicle"]
-    p.save
-    puts "#{p.first_name}, #{p.location} saved"
+    if row['Affiliations'].present?
+    #   if row["Affiliations"].include? ','
+    #     row["Affiliations"].split(',').each do |item|
+    #       Affiliation.create!({:name => item})
+        
+      l = Location.new
+      p = Person.new
+      a = Affiliation.new
+      l.name = row['Location'].titleize
+      a.name = row["Affiliations"]
+      p.name = row['Name'].titleize
+      p.location = l
+      p.species = row["Species"]
+      p.gender = row["Gender"]
+      p.affiliation = a
+      p.weapon = row["Weapon"]
+      p.vehicle = row["Vehicle"]
+      p.save
+      puts "#{p.name}, #{p.location} saved"
+    end
   end
-
-
-
-
-# people = Person.create([
-#     {
-#         first_name: "Darth",
-#         last_name: "Vadar",
-#         # location: locations.second,
-#         # location: locations.third,
-#         species: "Human",
-#         gender: "male",
-#         # affiliation: affiliations.second,
-#     },
-#     {
-#         first_name: "Chewbacca",
-#         location: locations.first,
-#         species: "Wookie",
-#         gender: "male",
-#         affiliation: affiliations.first,
-#     }
-# ])
