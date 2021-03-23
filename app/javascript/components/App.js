@@ -61,8 +61,6 @@ const App = () => {
       display: 'flex',
       flexDirection: 'column',
     }}>
-      <Typography variant="h4">Sentia Coding Test - Star Wars</Typography>
-
       <TextField
         id="standard-basic"
         variant="outlined"

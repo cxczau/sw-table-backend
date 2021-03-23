@@ -1,3 +1,5 @@
+require 'csv'
+
 module Api
   module V1
     class PeopleController < ApplicationController
@@ -27,7 +29,7 @@ module Api
         end
       end
 
-      def create
+      def import
         file_path = params[:file].path
         parser_method(file_path)
       end

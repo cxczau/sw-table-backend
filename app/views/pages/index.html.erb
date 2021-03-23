@@ -1,1 +1,8 @@
+<h2>Sentia Coding Test - Star Wars</h2>
 
+<h3>Import People</h3>
+
+<%= form_tag import_api_v1_people_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Upload People" %>
+<% end %>
